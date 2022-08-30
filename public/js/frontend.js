@@ -1964,7 +1964,25 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      name: "",
+      message: ""
+    };
+  },
+  methods: {
+    formSubmit: function formSubmit() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/contacts", {
+        name: this.name,
+        message: this.message
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -1977,7 +1995,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony import */ var _components_PostsList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/PostsList.vue */ "./resources/js/components/PostsList.vue");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    PostsList: _components_PostsList_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
 
 /***/ }),
 
@@ -1990,7 +2014,24 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      post: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/posts/" + this.$route.params.slug).then(function (resp) {
+      var data = resp.data;
+      _this.post = data;
+    });
+  }
+});
 
 /***/ }),
 
@@ -2013,11 +2054,19 @@ var render = function render() {
     staticClass: "section"
   }, [_c("nav", {
     staticClass: "d-flex justify-content-center"
-  }), _vm._v(" "), _c("main", {
+  }, [_c("router-link", {
+    attrs: {
+      to: "/"
+    }
+  }, [_vm._v("Home")]), _vm._v(" "), _c("router-link", {
+    attrs: {
+      to: "/contatti"
+    }
+  }, [_vm._v("Contatti")])], 1), _vm._v(" "), _c("main", {
     staticClass: "container py-5"
   }, [_c("h1", {
     staticClass: "text-center"
-  }, [_vm._v("Pagina Frontend")]), _vm._v(" "), _c("h2", [_vm._v("Ecco i post:")]), _vm._v(" "), _c("PostsList")], 1)]);
+  }, [_vm._v("Pagina Frontend")]), _vm._v(" "), _c("router-view")], 1)]);
 };
 
 var staticRenderFns = [];
@@ -2043,7 +2092,7 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("div", {
+  }, [_c("h2", [_vm._v("Ecco i post:")]), _vm._v(" "), _c("div", {
     staticClass: "row justify-content-center g-3"
   }, _vm._l(_vm.posts, function (post) {
     return _c("div", {
@@ -2067,12 +2116,17 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v(_vm._s(post.content))]), _vm._v(" "), _c("a", {
+    }, [_vm._v(_vm._s(post.content))]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
-        href: "#"
+        to: {
+          name: "post.show",
+          params: {
+            slug: post.slug
+          }
+        }
       }
-    }, [_vm._v("Go somewhere")])])])]);
+    }, [_vm._v("Go somewhere")])], 1)])]);
   }), 0)]);
 };
 
@@ -2097,15 +2151,62 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", [_c("h1", [_vm._v("Contattaci")]), _vm._v(" "), _c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.formSubmit.apply(null, arguments);
+      }
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.name,
+      expression: "name"
+    }],
+    attrs: {
+      type: "text",
+      placeholder: "Nome"
+    },
+    domProps: {
+      value: _vm.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.name = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.message,
+      expression: "message"
+    }],
+    attrs: {
+      cols: "30",
+      rows: "10",
+      placeholder: "Messaggio"
+    },
+    domProps: {
+      value: _vm.message
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.message = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("button", {
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Invia")])])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h1", [_vm._v("Contatti")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2126,15 +2227,10 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", [_c("h1", [_vm._v("Home")]), _vm._v(" "), _c("PostsList")], 1);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h1", [_vm._v("Home")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2155,15 +2251,26 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", {
+    staticClass: "text-center"
+  }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("img", {
+    staticClass: "w-25 py-3",
+    attrs: {
+      src: _vm.post.cover_img,
+      alt: ""
+    }
+  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex gap-3 justify-content-center"
+  }, [_vm.post.category ? _c("div", [_c("h4", [_vm._v("Categoria")]), _vm._v("\n            " + _vm._s(_vm.post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", [_c("h4", [_vm._v("Tags")]), _vm._v(" "), _c("ul", {
+    staticClass: "list-unstyled"
+  }, _vm._l(_vm.post.tags, function (tag) {
+    return _c("li", {
+      key: tag.id
+    }, [_vm._v(_vm._s(tag.name))]);
+  }), 0)]) : _vm._e()])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h1", [_vm._v("Show")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -17902,7 +18009,10 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   render: function render(h) {
     return h(_Frontend_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
   },
-  router: _routes__WEBPACK_IMPORTED_MODULE_3__["default"]
+  router: new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"],
+    mode: "history"
+  })
 });
 
 /***/ }),
@@ -18118,11 +18228,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
   \********************************/
-/*! exports provided: default */
+/*! exports provided: routes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Home.vue */ "./resources/js/pages/Home.vue");
 /* harmony import */ var _pages_Contacts_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Contacts.vue */ "./resources/js/pages/Contacts.vue");
@@ -18133,17 +18244,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [{
   path: "/",
-  component: _pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  name: "home"
 }, {
   path: "/contatti",
-  component: _pages_Contacts_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _pages_Contacts_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  name: "contacts"
 }, {
-  path: "/posts/idpost",
-  component: _pages_posts_Show_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  path: "/posts/:slug",
+  component: _pages_posts_Show_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: "post.show"
 }];
-/* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  routes: routes
-}));
 
 /***/ }),
 
@@ -18154,7 +18265,7 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-api\resources\js\frontend.js */"./resources/js/frontend.js");
+module.exports = __webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-boolpress\resources\js\frontend.js */"./resources/js/frontend.js");
 
 
 /***/ })

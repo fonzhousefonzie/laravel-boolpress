@@ -4,12 +4,8 @@ import Contacts from "./pages/Contacts.vue"
 import PostShow from "./pages/posts/Show.vue"
 
 
-const routes = [
-    {path: "/", component: Home},
-    {path: "/contatti", component: Contacts},
-    {path: "/posts/idpost", component: PostShow},
+export const routes = [
+    {path: "/", component: Home, name: "home"},
+    {path: "/contatti", component: Contacts, name: "contacts"},
+    {path: "/posts/:slug", component: PostShow, name: "post.show"},
 ]
-
-export default new VueRouter({
-    routes
-})

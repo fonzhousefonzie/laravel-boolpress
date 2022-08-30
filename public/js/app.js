@@ -40243,9 +40243,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-api\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-api\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-api\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
+__webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-boolpress\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-boolpress\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\Fonzie\Documents\Boolean\fonzie code\laravel-boolpress\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
 
 
 /***/ })
